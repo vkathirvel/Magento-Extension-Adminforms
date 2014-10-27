@@ -1,0 +1,32 @@
+<div class="entry-edit">
+    <div class="fieldset">
+        <h3>SEO Data of Products</h3>
+        <form id="impex_seoproduct" method="post" enctype="multipart/form-data" action="<?php echo $this->getUrl('*/adminhtml_impex_seoproduct/importseoproduct') ?>">
+            <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+            <table cellspacing="0" class="form-list">
+                <tr>
+                    <td class="label">Product SEO Export</td>
+                    <td>
+                        <button type="button" class="scalable" onclick="setLocation('<?php echo $this->getUrl('*/adminhtml_impex_seoproduct/exportseoproduct/option/all/store_id/1/') ?>')"><span>Export All</span></button>&nbsp;
+                        <button type="button" class="scalable" onclick="setLocation('<?php echo $this->getUrl('*/adminhtml_impex_seoproduct/exportseoproduct/option/enabled/store_id/1/') ?>')"><span>Export Enabled</span></button>&nbsp;
+                        <button type="button" class="scalable" onclick="setLocation('<?php echo $this->getUrl('*/adminhtml_impex_seoproduct/exportseoproduct/option/visible/store_id/1/') ?>')"><span>Export Visible (Catalogue / Search / Both)</span></button>&nbsp;
+                        <button type="button" class="scalable" onclick="setLocation('<?php echo $this->getUrl('*/adminhtml_impex_seoproduct/exportseoproduct/option/visibleenabled/store_id/1/') ?>')"><span>Export Visible and Enabled</span></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Product SEO Import File<span class="required">*</span></td>
+                    <td>
+                        <input value="" class="input-file required-entry" type="file" name="importfile" />
+                        <p class="note">Warning! CSV files created using Excel could break the whole website. Please remember to create a backup of the database before making major changes.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <?php // Mage::getModel('adminhtml/system_config_source_store')->toOptionArray(); ?>
+                    <td class="label">&nbsp;</td>
+                    <td><button onclick="impex_seoproduct.submit()" class="scalable save" type="button"><span>Import Product SEO Data</span></button></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">var impex_seoproduct = new varienForm('impex_seoproduct');</script>

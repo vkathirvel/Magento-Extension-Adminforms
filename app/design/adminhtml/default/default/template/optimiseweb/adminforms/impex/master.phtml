@@ -1,0 +1,35 @@
+<div class="content-header">
+    <h3>Bespoke Import / Export</h3>
+</div>
+
+<div id="messages">
+    <ul class="messages">
+        <li class="notice-msg" style="background-image:none!important;">
+            <ul style="list-style:disc;">
+                <li>
+                    <span>Warning! CSV files created using Microsoft Excel could be poorly formatted and can break the website data.</span>
+                </li>
+                <li>
+                    <span>If you do not have a Magento multi-website setup, the 'Store ID' column will be ignored. If in doubt, ask us about the store id column.</span>
+                </li>
+                <li>
+                    <span>Delete data rows that have no changes. Leaving them in the imported CSV file will cause the system to do numerous database calls to check if there are any changes. By deleting the rows that have no changes, the import will be faster.</span>
+                </li>
+                <li>
+                    <span>If in doubt, please create a backup of the database before making major changes.</span>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<?php
+/* Custom */
+foreach (glob(Mage::getBaseDir('design') . '/adminhtml/default/default/template/optimiseweb/adminforms/impex/custom/*.phtml') as $filename) {
+    include $filename;
+}
+/* Core */
+foreach (glob(Mage::getBaseDir('design') . '/adminhtml/default/default/template/optimiseweb/adminforms/impex/core/*.phtml') as $filename) {
+    include $filename;
+}
+?>

@@ -1,0 +1,28 @@
+<?php if (Mage::getConfig()->getModuleConfig('Fishpig_AttributeSplash')->is('active', 'true')) : ?>
+    <div class="entry-edit">
+        <div class="fieldset">
+            <h3>SEO Data of Fishpig's Splash Pages</h3>
+            <form id="impex_fishpigsplashpages" method="post" enctype="multipart/form-data" action="<?php echo $this->getUrl('*/adminhtml_impex_fishpigsplashpages/importfishpigsplashpages/') ?>">
+                <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+                <table cellspacing="0" class="form-list">
+                    <tr>
+                        <td class="label">Fishpig Splash Pages SEO Export</td>
+                        <td><button type="button" class="scalable" onclick="setLocation('<?php echo $this->getUrl('*/adminhtml_impex_fishpigsplashpages/exportfishpigsplashpages/') ?>')"><span>Export Fishpig Splash Pages SEO Data</span></button></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Fishpig Splash Pages SEO Import File<span class="required">*</span></td>
+                        <td>
+                            <input value="" class="input-file required-entry" type="file" name="importfile" />
+                            <p class="note">Warning! CSV files created using Excel could break the whole website. Please remember to create a backup of the database before making major changes.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label">&nbsp;</td>
+                        <td><button onclick="impex_fishpigsplashpages.submit()" class="scalable save" type="button"><span>Import Fishpig Splash Pages SEO Data</span></button></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">var impex_fishpigsplashpages = new varienForm('impex_fishpigsplashpages');</script>
+<?php endif; ?>

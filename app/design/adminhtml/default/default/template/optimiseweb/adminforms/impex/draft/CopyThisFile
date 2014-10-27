@@ -1,0 +1,33 @@
+<?php
+/**
+ * {{{heading}}} - This is about the Shipping Groups
+ * {{{subcontroller}}} - shippinggroups
+ * {{{labeltitle}}} - Shipping Groups
+ */
+?>
+<div class="entry-edit">
+    <div class="fieldset">
+        <h3>{{{heading}}}</h3>
+        <form id="impex_{{{subcontroller}}}" method="post" enctype="multipart/form-data" action="<?php echo $this->getUrl('*/adminhtml_impex_{{{subcontroller}}}/import{{{subcontroller}}}') ?>">
+            <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+            <table cellspacing="0" class="form-list">
+                <tr>
+                    <td class="label">{{{labeltitle}}} Export</td>
+                    <td><button type="button" class="scalable" onclick="setLocation('<?php echo $this->getUrl('*/adminhtml_impex_{{{subcontroller}}}/export{{{subcontroller}}}') ?>')"><span>Export</span></button></td>
+                </tr>
+                <tr>
+                    <td class="label">{{{labeltitle}}} File<span class="required">*</span></td>
+                    <td>
+                        <input value="" class="input-file required-entry" type="file" name="importfile" />
+                        <p class="note">Warning! CSV files created using Excel could break the whole website. Please remember to create a backup of the database before making major changes.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">&nbsp;</td>
+                    <td><button onclick="impex_{{{subcontroller}}}.submit()" class="scalable save" type="button"><span>Import {{{labeltitle}}}</span></button></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">var impex_{{{subcontroller}}} = new varienForm('impex_{{{subcontroller}}}');</script>

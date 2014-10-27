@@ -1,0 +1,26 @@
+<div class="entry-edit">
+    <div class="fieldset">
+        <h3>Product Price / Special Price / Special Price Date Range</h3>
+        <form id="impex_productprice" method="post" enctype="multipart/form-data" action="<?php echo $this->getUrl('*/adminhtml_impex_productprice/importproductprice/store_id/1/') ?>">
+            <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+            <table cellspacing="0" class="form-list">
+                <tr>
+                    <td class="label">Product Prices Export</td>
+                    <td><button type="button" class="scalable" onclick="setLocation('<?php echo $this->getUrl('*/adminhtml_impex_productprice/exportproductprice/store_id/1/') ?>')"><span>Export</span></button></td>
+                </tr>
+                <tr>
+                    <td class="label">Product Prices File<span class="required">*</span></td>
+                    <td>
+                        <input value="" class="input-file required-entry" type="file" name="importfile" />
+                        <p class="note">Warning! CSV files created using Excel could break the whole website. Please remember to create a backup of the database before making major changes.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">&nbsp;</td>
+                    <td><button onclick="impex_productprice.submit()" class="scalable save" type="button"><span>Import Product Prices</span></button></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">var impex_productprice = new varienForm('impex_productprice');</script>
