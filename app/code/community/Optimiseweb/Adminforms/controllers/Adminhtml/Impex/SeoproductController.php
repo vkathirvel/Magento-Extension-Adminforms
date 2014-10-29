@@ -150,12 +150,14 @@ class Optimiseweb_Adminforms_Adminhtml_Impex_SeoproductController extends Optimi
                             if ($save) {
                                 /* Save the product data */
                                 $model->save();
+                                Mage::log('Saved entity_id: ' . $newDetail['entity_id'], 6, 'bespoke_import.log', TRUE);
                                 $this->successCounter++;
                             }
 
                             /* Reset Save True or False? */
                             $save = FALSE;
                         } else {
+                            Mage::log('Not found entity_id: ' . $newDetail['entity_id'], 6, 'bespoke_import.log', TRUE);
                             $this->errorCounter++;
                         }
                     }

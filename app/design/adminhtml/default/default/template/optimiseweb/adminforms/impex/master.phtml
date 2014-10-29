@@ -18,6 +18,14 @@
                 <li>
                     <span>If in doubt, please create a backup of the database before making major changes.</span>
                 </li>
+                <li>
+                    <?php $logFilePath = Mage::getBaseDir('log') . DS . 'bespoke_import.log'; ?>
+                    <?php if (is_file($logFilePath) || is_readable($logFilePath)) : ?>
+                        <span>There is a log file available for <a href="<?php echo $this->getUrl('*/adminhtml_impex/downloadlog/'); ?>">download</a>. <a href="<?php echo $this->getUrl('*/adminhtml_impex/deletelog/'); ?>">Delete</a> the log file?</span>
+                    <?php else: ?>
+                        <span>There is no log file.</span>
+                    <?php endif; ?>
+                </li>
             </ul>
         </li>
     </ul>

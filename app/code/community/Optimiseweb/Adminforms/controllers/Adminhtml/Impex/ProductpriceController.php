@@ -109,7 +109,7 @@ class Optimiseweb_Adminforms_Adminhtml_Impex_ProductpriceController extends Opti
                         $model = Mage::getModel('catalog/product')->load($newDetail['entity_id'])->setStoreId($this->storeId);
 
 
-                        if ($model !== FALSE) {
+                        if ($model->getId()) {
                             /* Attributes to check and update */
                             $attributes = array(
                                     'name',
@@ -144,12 +144,14 @@ class Optimiseweb_Adminforms_Adminhtml_Impex_ProductpriceController extends Opti
                             if ($save) {
                                 /* Save the product data */
                                 $model->save();
+                                Mage::log('Saved entity_id: ' . $newDetail['entity_id'], 6, 'bespoke_import.log', TRUE);
                                 $this->successCounter++;
                             }
 
                             /* Reset Save True or False? */
                             $save = FALSE;
                         } else {
+                            Mage::log('Not found entity_id: ' . $newDetail['entity_id'], 6, 'bespoke_import.log', TRUE);
                             $this->errorCounter++;
                         }
                     }

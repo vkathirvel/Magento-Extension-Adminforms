@@ -97,12 +97,14 @@ class Optimiseweb_Adminforms_Adminhtml_Impex_FishpigsplashpagesController extend
                             if ($save) {
                                 /* Save the product data */
                                 $model->save();
+                                Mage::log('Saved page_id: ' . $newDetail['page_id'], 6, 'bespoke_import.log', TRUE);
                                 $this->successCounter++;
                             }
 
                             /* Reset Save True or False? */
                             $save = FALSE;
                         } else {
+                            Mage::log('Not found page_id: ' . $newDetail['page_id'], 6, 'bespoke_import.log', TRUE);
                             $this->errorCounter++;
                         }
                     }

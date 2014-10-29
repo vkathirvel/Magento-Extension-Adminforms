@@ -163,16 +163,66 @@ class Optimiseweb_Adminforms_Adminhtml_ImpexController extends Mage_Adminhtml_Co
      */
     protected function setSuccessSummaryMessage($successCounter, $errorCounter, $rowCounter)
     {
-        if ($successCounter == 0) {
-            $successMessage = 'Nothing to import.';
-        } elseif ($errorCounter == 0) {
-            $successMessage = 'Import Successful. Imported ' . $successCounter . ' rows.';
-        } elseif (($successCounter > 0) AND ( $errorCounter > 0)) {
-            $successMessage = 'Import Successful. Imported ' . $successCounter . ' rows. ' . $errorCounter . ' errors encountered.';
+        if (($successCounter > 0) AND ( $errorCounter > 0)) {
+            $successMessage = 'Total rows ' . $rowCounter . '. Imported ' . $successCounter . ' rows. ' . $errorCounter . ' errors encountered.';
+        } elseif (($successCounter == 0) AND ( $errorCounter == 0)) {
+            $successMessage = 'Total rows ' . $rowCounter . '. Imported ' . $successCounter . ' rows. ' . $errorCounter . ' errors encountered.';
+        } elseif (($successCounter > 0) AND ( $errorCounter == 0)) {
+            $successMessage = 'Total rows ' . $rowCounter . '. Imported ' . $successCounter . ' rows. ' . $errorCounter . ' errors encountered.';
+        } elseif (($successCounter == 0) AND ( $errorCounter > 0)) {
+            $successMessage = 'Total rows ' . $rowCounter . '. Imported ' . $successCounter . ' rows. ' . $errorCounter . ' errors encountered.';
         } else {
-            $successMessage = 'Import Successful. ' . $errorCounter . ' errors encountered.';
+            $successMessage = 'Total rows ' . $rowCounter . '. Import result: Unknown.';
         }
         Mage::getSingleton('adminhtml/session')->addSuccess($successMessage);
+    }
+
+    /**
+     *
+     */
+    public function downloadlogAction()
+    {
+        $filepath = Mage::getBaseDir('log') . DS . 'bespoke_import.log';
+        if (!is_file($filepath) || !is_readable($filepath)) {
+            Mage::getSingleton('adminhtml/session')->addError('The log file is not found or is not readable.');
+            $this->_redirect('*/adminhtml_impex');
+            return;
+        }
+        $this->getResponse()
+            ->setHttpResponseCode(200)
+            ->setHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0', true)
+            ->setHeader('Pragma', 'public', true)
+            ->setHeader('Content-type', 'application/force-download')
+            ->setHeader('Content-Length', filesize($filepath))
+            ->setHeader('Content-Disposition', 'attachment' . '; filename=' . basename($filepath));
+        $this->getResponse()->clearBody();
+        $this->getResponse()->sendHeaders();
+        readfile($filepath);
+        exit;
+    }
+
+    /**
+     *
+     */
+    public function deletelogAction()
+    {
+        $filepath = Mage::getBaseDir('log') . DS . 'bespoke_import.log';
+        if (is_file($filepath) || is_readable($filepath)) {
+            try {
+                unlink($filepath);
+                Mage::getSingleton('adminhtml/session')->addSuccess('Successfully deleted the log file.');
+                $this->_redirect('*/adminhtml_impex');
+                return;
+            } catch (Exception $e) {
+                //echo $e->getMessage();
+                Mage::getSingleton('adminhtml/session')->addError('Unable to delete the log file.');
+                $this->_redirect('*/adminhtml_impex');
+                return;
+            }
+        }
+        Mage::getSingleton('adminhtml/session')->addError('The log file is not found or is not readable.');
+        $this->_redirect('*/adminhtml_impex');
+        return;
     }
 
     /**
